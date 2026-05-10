@@ -26,7 +26,7 @@
             font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: #fff;
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             text-shadow: 0 0 10px #fff, 0 0 20px #ff4d6d; opacity: 0;
-            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: all 1.2s ease;
         }
 
         .neon-names.show { opacity: 1; }
@@ -51,4 +51,83 @@
 <audio id="love-song" loop><source src="love.mp3" type="audio/mpeg"></audio>
 
 <div id="start-overlay">
-    <div style="color: #ff4
+    <div style="color: #ff4d6d; border: 2px solid #ff4d6d; padding: 15px 40px; border-radius: 50px; font-weight: bold;">
+        اضغط هنا عشان تبدأ حكايتنا ❤️
+    </div>
+</div>
+
+<div id="intro-page">
+    <div class="neon-names" id="names-display">Abdullah & Asmaa</div>
+    <div id="heart-from-text"></div>
+</div>
+
+<div id="main-site">
+    <div style="font-size: 60px; margin-top: 20px;">❤️</div>
+    <div class="pink-card">
+        <h2 style="color: #c2185b; font-weight: 800;">"يا عبدالله بقى.."</h2>
+        <p style="color: #ff4d6d; font-size: 1.2rem; font-weight: bold; margin: 10px 0;">.. كدا يعني! 😂</p>
+        <p>عارف إنك بتقوليها كتير، بس والله طالعة منك زي العسل يا أسمى!</p>
+    </div>
+
+    <div style="color: #c2185b; font-weight: 800; margin-top: 30px;">بقالنا مع بعض رسمياً:</div>
+    <div id="timer" class="counter-box">
+        <div><span id="days">0</span><br><small>يوم</small></div>
+        <div><span id="hours">0</span><br><small>ساعة</small></div>
+        <div><span id="mins">0</span><br><small>دقيقة</small></div>
+        <div><span id="secs">0</span><br><small>ثانية</small></div>
+    </div>
+
+    <button class="btn-love" onclick="alert('وأنا كمان بموت فيكي! ❤️')">بتحبيني يا أسمى؟</button>
+</div>
+
+<script>
+    const song = document.getElementById('love-song');
+    const heart = document.getElementById('heart-from-text');
+    const introPage = document.getElementById('intro-page');
+
+    function buildHeart() {
+        const text = "love you ";
+        let count = 0;
+        heart.style.opacity = '1';
+        const interval = setInterval(() => {
+            heart.innerHTML += text;
+            count++;
+            if (count > 500) clearInterval(interval);
+        }, 15);
+    }
+
+    document.getElementById('start-overlay').addEventListener('click', function() {
+        this.style.display = 'none';
+        introPage.style.display = 'flex';
+        song.play();
+        
+        setTimeout(() => { document.getElementById('names-display').classList.add('show'); }, 500);
+        setTimeout(() => { document.getElementById('names-display').classList.add('moving-up'); }, 3000);
+        setTimeout(() => { buildHeart(); }, 4500);
+        
+        setTimeout(() => {
+            introPage.style.opacity = '0';
+            song.pause(); // قفل الأغنية هنا أضمن
+            setTimeout(() => {
+                introPage.style.display = 'none';
+                document.getElementById('main-site').style.opacity = '1';
+                document.getElementById('main-site').style.visibility = 'visible';
+                document.body.style.overflow = 'auto';
+                document.body.style.background = '#fff';
+            }, 1000);
+        }, 12000);
+    });
+
+    function updateTimer() {
+        const start = new Date('2026-03-29T19:00:00');
+        const now = new Date();
+        const diff = now - start;
+        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        document.getElementById('mins').innerText = Math.floor((diff / (1000 * 60)) % 60);
+        document.getElementById('secs').innerText = Math.floor((diff / 1000) % 60);
+    }
+    setInterval(updateTimer, 1000);
+</script>
+</body>
+</html>
