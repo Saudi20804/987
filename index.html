@@ -26,7 +26,7 @@
             font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: #fff;
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             text-shadow: 0 0 10px #fff, 0 0 20px #ff4d6d; opacity: 0;
-            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
         .neon-names.show { opacity: 1; }
@@ -34,14 +34,14 @@
 
         #heart-from-text {
             width: 300px; height: 300px; color: var(--accent); 
-            font-size: 0.6rem; font-weight: bold; line-height: 0.8;
-            text-align: center; opacity: 0; transition: opacity 2s ease;
-            margin-top: 60px; display: flex; justify-content: center; align-items: center;
-            word-break: break-all; clip-path: polygon(50% 15%, 85% 15%, 100% 35%, 100% 70%, 50% 100%, 0% 70%, 0% 35%, 15% 15%);
+            font-size: 0.65rem; font-weight: bold; line-height: 0.85;
+            text-align: center; margin-top: 60px; display: flex; justify-content: center; align-items: center;
+            word-break: break-all; opacity: 0; transition: opacity 1s;
+            clip-path: polygon(50% 15%, 85% 15%, 100% 35%, 100% 70%, 50% 100%, 0% 70%, 0% 35%, 15% 15%);
         }
 
         #main-site { opacity: 0; visibility: hidden; transition: 1.5s; background: #fff; min-height: 100vh; overflow-y: auto; color: #333; text-align: center; padding: 20px; }
-        .pink-card { background: #fff0f3; border: 2px dashed #ff4d6d; border-radius: 20px; padding: 20px; margin: 20px auto; max-width: 400px; }
+        .pink-card { background: #fff0f3; border: 2px dashed #ff4d6d; border-radius: 20px; padding: 25px; margin: 20px auto; max-width: 450px; }
         .counter-box { background: #ff4d6d; color: #fff; border-radius: 15px; padding: 15px; margin: 20px auto; display: flex; justify-content: space-around; max-width: 400px; }
         .btn-love { background: #ff4d6d; color: #fff; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.2rem; cursor: pointer; margin-top: 20px; }
     </style>
@@ -52,7 +52,7 @@
 
 <div id="start-overlay">
     <div style="color: #ff4d6d; border: 2px solid #ff4d6d; padding: 15px 40px; border-radius: 50px; font-weight: bold;">
-        Click to Start Our Story ❤️
+        اضغط هنا عشان تبدأ حكايتنا ❤️
     </div>
 </div>
 
@@ -62,59 +62,84 @@
 </div>
 
 <div id="main-site">
-    <div style="font-size: 50px;">❤️</div>
+    <div style="font-size: 60px; margin-top: 20px;">❤️</div>
     <div class="pink-card">
-        <h2 style="color: #c2185b;">"يا عبدالله بقى.."</h2>
-        <p style="color: #ff4d6d; font-weight: bold; margin: 10px 0;">.. كدا يعني! 😂</p>
-        <p>عارف إنك بتقوليها كتير، بس والله طالعة منك زي العسل يا أسمى!</p>
+        <h2 style="color: #c2185b; font-weight: 800;">"يا عبدالله بقى.."</h2>
+        <p style="color: #ff4d6d; font-size: 1.2rem; font-weight: bold; margin: 10px 0;">.. كدا يعني! 😂</p>
+        <p>عارف إنك بتقوليها كتير، بس والله طالعة منك زي العسل يا أسمى! ربنا يخليكي ليا.</p>
     </div>
 
-    <div style="color: #c2185b; font-weight: bold;">بقالنا مع بعض رسمياً (من يوم 29/3):</div>
+    <div style="color: #c2185b; font-weight: 800; margin-top: 30px;">بقالنا مع بعض رسمياً:</div>
     <div class="counter-box" id="timer">
-        <div><span id="days">0</span><br><small>يوم</small></div>
-        <div><span id="hours">0</span><br><small>ساعة</small></div>
-        <div><span id="mins">0</span><br><small>دقيقة</small></div>
-        <div><span id="secs">0</span><br><small>ثانية</small></div>
+        <div><span id="days" style="font-size: 1.5rem; font-weight: 800;">0</span><br><small>يوم</small></div>
+        <div><span id="hours" style="font-size: 1.5rem; font-weight: 800;">0</span><br><small>ساعة</small></div>
+        <div><span id="mins" style="font-size: 1.5rem; font-weight: 800;">0</span><br><small>دقيقة</small></div>
+        <div><span id="secs" style="font-size: 1.5rem; font-weight: 800;">0</span><br><small>ثانية</small></div>
     </div>
 
-    <p style="font-weight: bold; color: #c2185b; margin: 20px;">
-        الوعد هو هو.. أخلص جيشي ونتجوز <br>
-        ونبني أحلى بيت في سبتمبر 2027 سوا 🏠
-    </p>
+    <div class="pink-card" style="border-style: solid; border-width: 1px;">
+        <p style="font-weight: bold; color: #c2185b;">
+            الوعد هو هو.. أخلص جيشي ونتجوز <br>
+            ونبني أحلى بيت في سبتمبر 2027 سوا 🏠
+        </p>
+    </div>
 
-    <h3>بتحبيني يا أسمى؟</h3>
+    <h3 style="margin-top: 30px; color: #c2185b;">بتحبيني يا أسمى؟</h3>
     <button class="btn-love" onclick="alert('وأنا كمان بموت فيكي يا أغلى حاجة في حياتي! ❤️')">أيوة طبعاً!</button>
 </div>
 
 <script>
     const song = document.getElementById('love-song');
     const heart = document.getElementById('heart-from-text');
+    const introPage = document.getElementById('intro-page');
 
-    for (let i = 0; i < 600; i++) { heart.innerHTML += 'love you '; }
+    function buildHeart() {
+        const text = "love you ";
+        let count = 0;
+        heart.style.opacity = '1';
+        const interval = setInterval(() => {
+            heart.innerHTML += text;
+            count++;
+            if (count > 500) clearInterval(interval);
+        }, 15);
+    }
+
+    function fadeOutAudio() {
+        const fadeInterval = setInterval(() => {
+            if (song.volume > 0.1) {
+                song.volume -= 0.1;
+            } else {
+                song.pause();
+                clearInterval(fadeInterval);
+            }
+        }, 200);
+    }
 
     document.getElementById('start-overlay').addEventListener('click', function() {
         this.style.display = 'none';
-        document.getElementById('intro-page').style.display = 'flex';
+        introPage.style.display = 'flex';
+        song.volume = 1;
         song.play();
         
         setTimeout(() => { document.getElementById('names-display').classList.add('show'); }, 500);
-        setTimeout(() => { document.getElementById('names-display').classList.add('moving-up'); }, 3500);
-        setTimeout(() => { heart.style.opacity = '1'; }, 5000);
+        setTimeout(() => { document.getElementById('names-display').classList.add('moving-up'); }, 3000);
+        setTimeout(() => { buildHeart(); }, 4500);
         
         setTimeout(() => {
-            document.getElementById('intro-page').style.opacity = '0';
+            introPage.style.opacity = '0';
+            fadeOutAudio(); 
             setTimeout(() => {
-                document.getElementById('intro-page').style.display = 'none';
+                introPage.style.display = 'none';
                 document.getElementById('main-site').style.opacity = '1';
                 document.getElementById('main-site').style.visibility = 'visible';
                 document.body.style.overflow = 'auto';
                 document.body.style.background = '#fff';
             }, 1000);
-        }, 11000);
+        }, 13000);
     });
 
     function updateTimer() {
-        const start = new Date('2026-03-29T00:00:00');
+        const start = new Date('2026-03-29T19:00:00');
         const now = new Date();
         const diff = now - start;
         document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
