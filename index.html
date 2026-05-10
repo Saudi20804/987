@@ -4,130 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdullah & Asmaa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #ff4d6d; --text: #fff0f3; }
+        :root { --main-pink: #ff4d6d; --dark-pink: #c2185b; --bg-light: #fff0f3; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; color: var(--text); font-family: 'Cairo', sans-serif; overflow: hidden; }
+        body { background: #000; font-family: 'Cairo', sans-serif; overflow: hidden; color: white; }
 
+        /* الشاشة الافتتاحية */
         #start-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 3000; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; text-align: center;
+            position: fixed; inset: 0; background: #000; z-index: 9999;
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+        }
+        .start-btn {
+            padding: 15px 40px; border: 3px solid var(--main-pink); border-radius: 50px;
+            color: var(--main-pink); font-weight: 900; font-size: 1.2rem;
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.4); animation: pulse 1.5s infinite;
         }
 
         #intro-page {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; display: none; flex-direction: column; 
-            justify-content: center; align-items: center; z-index: 2000;
+            position: fixed; inset: 0; background: #000; display: none;
+            flex-direction: column; justify-content: center; align-items: center; z-index: 5000;
         }
 
+        /* تعديل الأسماء لتكون واضحة وعريضة */
         .neon-names {
-            font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: #fff;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            text-shadow: 0 0 10px #fff, 0 0 20px #ff4d6d; opacity: 0;
-            transition: all 1.2s ease;
+            font-family: 'Dancing Script', cursive; font-size: 4rem; font-weight: 900;
+            color: #fff; text-shadow: 0 0 10px #fff, 0 0 20px var(--main-pink), 0 0 40px var(--main-pink);
+            opacity: 0; transform: scale(0.8); transition: all 1.5s ease-in-out; position: absolute;
+        }
+        .neon-names.show { opacity: 1; transform: scale(1.1); }
+        .neon-names.move-up { transform: translateY(-180px) scale(0.7); }
+
+        /* ضبط شكل القلب */
+        #heart-container {
+            width: 320px; height: 300px; margin-top: 50px; opacity: 0; transition: opacity 1.5s;
+            display: flex; justify-content: center; align-items: center;
+            background: var(--main-pink);
+            clip-path: polygon(50% 15%, 80% 0%, 100% 20%, 100% 50%, 50% 100%, 0% 50%, 0% 20%, 20% 0%);
+            padding: 20px;
+        }
+        #heart-inner-text {
+            color: #fff; font-size: 9px; line-height: 10px; font-weight: bold;
+            text-align: center; word-break: break-all; width: 100%; height: 100%; overflow: hidden;
         }
 
-        .neon-names.show { opacity: 1; }
-        .neon-names.moving-up { top: 80px; transform: translate(-50%, -50%) scale(0.6); }
-
-        #heart-from-text {
-            width: 300px; height: 300px; color: var(--accent); 
-            font-size: 0.65rem; font-weight: bold; line-height: 0.85;
-            text-align: center; margin-top: 60px; display: flex; justify-content: center; align-items: center;
-            word-break: break-all; opacity: 0; transition: opacity 1s;
-            clip-path: polygon(50% 15%, 85% 15%, 100% 35%, 100% 70%, 50% 100%, 0% 70%, 0% 35%, 15% 15%);
+        /* الموقع الرئيسي */
+        #main-content {
+            display: none; background: var(--bg-light); min-height: 100vh;
+            color: #333; padding: 20px; text-align: center; overflow-y: auto;
         }
+        .card {
+            background: #fff; border-radius: 25px; padding: 30px; margin: 20px auto;
+            max-width: 500px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.1);
+            border-bottom: 5px solid var(--main-pink);
+        }
+        .timer-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0;
+        }
+        .timer-item {
+            background: var(--main-pink); color: #fff; padding: 10px; border-radius: 15px;
+        }
+        .timer-item span { font-size: 1.5rem; font-weight: 900; display: block; }
+        
+        .footer-text { font-weight: 700; color: var(--dark-pink); margin: 20px 0; }
 
-        #main-site { opacity: 0; visibility: hidden; transition: 1.5s; background: #fff; min-height: 100vh; overflow-y: auto; color: #333; text-align: center; padding: 20px; }
-        .pink-card { background: #fff0f3; border: 2px dashed #ff4d6d; border-radius: 20px; padding: 25px; margin: 20px auto; max-width: 450px; }
-        .counter-box { background: #ff4d6d; color: #fff; border-radius: 15px; padding: 15px; margin: 20px auto; display: flex; justify-content: space-around; max-width: 400px; }
-        .btn-love { background: #ff4d6d; color: #fff; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.2rem; cursor: pointer; margin-top: 20px; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-<audio id="love-song" loop><source src="love.mp3" type="audio/mpeg"></audio>
+<audio id="bg-music" loop><source src="love.mp3" type="audio/mpeg"></audio>
 
 <div id="start-overlay">
-    <div style="color: #ff4d6d; border: 2px solid #ff4d6d; padding: 15px 40px; border-radius: 50px; font-weight: bold;">
-        اضغط هنا عشان تبدأ حكايتنا ❤️
-    </div>
+    <div class="start-btn">Click to Open Our World ❤️</div>
 </div>
 
 <div id="intro-page">
-    <div class="neon-names" id="names-display">Abdullah & Asmaa</div>
-    <div id="heart-from-text"></div>
+    <div class="neon-names" id="names">Abdullah & Asmaa</div>
+    <div id="heart-container">
+        <div id="heart-inner-text"></div>
+    </div>
 </div>
 
-<div id="main-site">
-    <div style="font-size: 60px; margin-top: 20px;">❤️</div>
-    <div class="pink-card">
-        <h2 style="color: #c2185b; font-weight: 800;">"يا عبدالله بقى.."</h2>
-        <p style="color: #ff4d6d; font-size: 1.2rem; font-weight: bold; margin: 10px 0;">.. كدا يعني! 😂</p>
-        <p>عارف إنك بتقوليها كتير، بس والله طالعة منك زي العسل يا أسمى!</p>
+<div id="main-content">
+    <div style="font-size: 50px; margin: 20px;">🌹</div>
+    <div class="card">
+        <h1 style="color: var(--dark-pink); font-weight: 900; margin-bottom: 15px;">يا عبدالله بقى..</h1>
+        <p style="font-size: 1.2rem; line-height: 1.8;">
+            عارف إن الكلمة دي سر ضحكتنا، وعارف إنك بتقوليها بدلع يجنن.. ربنا يباركلي فيكي يا أسمى وتفضلي منورة حياتي.
+        </p>
     </div>
 
-    <div style="color: #c2185b; font-weight: 800; margin-top: 30px;">بقالنا مع بعض رسمياً:</div>
-    <div id="timer" class="counter-box">
-        <div><span id="days">0</span><br><small>يوم</small></div>
-        <div><span id="hours">0</span><br><small>ساعة</small></div>
-        <div><span id="mins">0</span><br><small>دقيقة</small></div>
-        <div><span id="secs">0</span><br><small>ثانية</small></div>
+    <div class="card">
+        <h3 style="margin-bottom: 15px;">بقالنا مع بعض رسمياً:</h3>
+        <div class="timer-grid">
+            <div class="timer-item"><span id="d">0</span> يوم</div>
+            <div class="timer-item"><span id="h">0</span> ساعة</div>
+            <div class="timer-item"><span id="m">0</span> دقيقة</div>
+            <div class="timer-item"><span id="s">0</span> ثانية</div>
+        </div>
+        <p class="footer-text">من يوم خطوبتنا (29 مارس)</p>
     </div>
 
-    <button class="btn-love" onclick="alert('وأنا كمان بموت فيكي! ❤️')">بتحبيني يا أسمى؟</button>
-</div>
-
-<script>
-    const song = document.getElementById('love-song');
-    const heart = document.getElementById('heart-from-text');
-    const introPage = document.getElementById('intro-page');
-
-    function buildHeart() {
-        const text = "love you ";
-        let count = 0;
-        heart.style.opacity = '1';
-        const interval = setInterval(() => {
-            heart.innerHTML += text;
-            count++;
-            if (count > 500) clearInterval(interval);
-        }, 15);
-    }
-
-    document.getElementById('start-overlay').addEventListener('click', function() {
-        this.style.display = 'none';
-        introPage.style.display = 'flex';
-        song.play();
-        
-        setTimeout(() => { document.getElementById('names-display').classList.add('show'); }, 500);
-        setTimeout(() => { document.getElementById('names-display').classList.add('moving-up'); }, 3000);
-        setTimeout(() => { buildHeart(); }, 4500);
-        
-        setTimeout(() => {
-            introPage.style.opacity = '0';
-            song.pause(); // قفل الأغنية هنا أضمن
-            setTimeout(() => {
-                introPage.style.display = 'none';
-                document.getElementById('main-site').style.opacity = '1';
-                document.getElementById('main-site').style.visibility = 'visible';
-                document.body.style.overflow = 'auto';
-                document.body.style.background = '#fff';
-            }, 1000);
-        }, 12000);
-    });
-
-    function updateTimer() {
-        const start = new Date('2026-03-29T19:00:00');
-        const now = new Date();
-        const diff = now - start;
-        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        document.getElementById('mins').innerText = Math.floor((diff / (1000 * 60)) % 60);
-        document.getElementById('secs').innerText = Math.floor((diff / 1000) % 60);
-    }
-    setInterval(updateTimer, 1000);
-</script>
-</body>
-</html>
+    <div class="card" style="background: var(--main-pink); color: #fff;">
+        <p style="font-size: 1.1rem; font-weight:
